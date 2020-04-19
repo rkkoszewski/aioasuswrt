@@ -25,7 +25,7 @@ class SshConnection:
         self._ssh_key = ssh_key
         self._client = None
 
-    async def async_run_command(self, command, retry=False):
+    async def async_run_command(self, command, retry=False, splitnewline=True):
         """Run commands through an SSH connection.
 
         Connect to the SSH server if not currently connected, otherwise
@@ -51,7 +51,10 @@ class SshConnection:
             return []
 
         self._connected = True
-        return result.stdout.split('\n')
+        if splitnewline:
+            return result.stdout.split('\n')
+        else:
+            return result.stdout
 
     @property
     def is_connected(self):
