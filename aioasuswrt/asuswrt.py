@@ -3,7 +3,7 @@ import inspect
 import logging
 import math
 import re
-import orjson
+import json
 from collections import namedtuple
 from datetime import datetime
 
@@ -331,7 +331,7 @@ class AsusWrt:
             return {}
         
         devices = {}
-        dev_list = orjson.loads(lines)
+        dev_list = json.loads(lines)
         for if_mac in dev_list.keys():
             for conn_type in dev_list[if_mac].keys():
                 for dev_mac in dev_list[if_mac][conn_type].keys():
